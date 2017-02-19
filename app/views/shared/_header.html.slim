@@ -1,0 +1,16 @@
+section#top-header.row
+  h1.col-md-2
+    = link_to "MyFLiX"
+  - if logged_in?
+    ul.col-md-4.clearfix
+      li= link_to "Videos"
+      li= link_to "My Queue"
+      li= link_to "People"
+    = render "shared/search_form"
+  user_links.pull-right
+    ul
+      li.dropdown
+        - if logged_in?
+          = link_to current_user.full_name, logout_path, method: :delete
+        - else
+          = link_to "Log in", login_path

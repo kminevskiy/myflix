@@ -1,0 +1,9 @@
+section.site_title
+  h1
+    ' Unlimited Movies for Only 9.99 a Month.
+    - if !logged_in?
+      = link_to "Sign Up Now!", register_path
+  - if !logged_in?
+    p.sign_in
+      ' Have an account? Please
+      = link_to "Sign In", login_path

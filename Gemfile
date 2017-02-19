@@ -1,31 +1,31 @@
 source 'https://rubygems.org'
-ruby '2.1.2'
+ruby '2.3.3'
 
 gem 'bootstrap-sass', '3.1.1.1'
 gem 'coffee-rails'
-gem 'rails', '4.1.1'
-gem 'haml-rails'
+gem 'rails', '5.0.1'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
 gem 'pg'
+gem "slim-rails"
+gem "bcrypt"
 
 group :development do
-  gem 'thin'
-  gem "better_errors"
+  gem 'puma'
   gem "binding_of_caller"
 end
 
 group :development, :test do
   gem 'pry'
   gem 'pry-nav'
-  gem 'rspec-rails', '2.99'
+  gem 'rspec-rails'
 end
 
 group :test do
-  gem 'database_cleaner', '1.4.1'
-  gem 'shoulda-matchers', '2.7.0'
-  gem 'vcr', '2.9.3'
+  gem 'database_cleaner'
+  gem 'shoulda-matchers'
+  gem 'vcr'
 end
 
 group :production do
