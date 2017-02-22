@@ -20,6 +20,10 @@ group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem 'rspec-rails'
+  gem "rails-controller-testing"
+  gem "shoulda-matchers"
+  gem "fabrication"
+  gem "faker"
 end
 
 group :test do

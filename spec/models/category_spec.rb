@@ -2,6 +2,9 @@ require "spec_helper"
 require "rails_helper"
 
 describe Category do
+  it { should have_many(:videos) }
+  it { should validate_presence_of(:name) }
+
   it "has many videos" do
     category = Category.create(name: "Fiction")
     video = Video.create(title: "Test video", category: category, description: "Test video description", small_cover_url: "https://testvideo.com", large_cover_url: "http://testvideo.com")

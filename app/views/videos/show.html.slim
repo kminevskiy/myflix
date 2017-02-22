@@ -1,3 +1,6 @@
+- rating_options = [["1 star", 1], ["2 stars", 2], ["3 stars", 3], ["4 stars", 4], ["5 stars", 5]]
+- average_rating = @video.average_rating.zero? ? 0 : number_with_precision(@video.average_rating, precision: 1)
+
 article.video
   .container
     .row
@@ -6,5 +9,33 @@ article.video
       .video_info.col-sm-3
         header
           h3 = @video.title
-          span Rating: 4.5/5.0
+          span Rating: #{average_rating} / 5.0
         p = @video.description
+        .actions
+          = button_to "Watch Now"
+          = button_to "+ My Queue", { controller: "queue_items", action: "create", video_id: @video.id }
+
+section.reviews.container
+  = form_for [@video, @review] do |f|
+    fieldset
+      = f.label :rating, "Rate this video"
+      = f.select :rating, rating_options
+      = f.label :content, "Write a review", rows: 6, class: "span6"
+      = f.text_area :content
+    fieldset
+      = f.submit "Submit", class: "btn"
+      = link_to "Cancel", @video
+
+  header
+    h3 = "User Reviews (#{@reviews.count})"
+    ul
+      - @reviews.each do |review|
+        article.review
+          li.row
+            .col-sm-2
+              span = "Rating: #{review.rating} / 5"
+              p
+                | by
+                  <a href="">#{review.user.full_name}</a>
+            .col-sm-8
+              p = review.content
