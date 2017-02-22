@@ -3,6 +3,9 @@ Myflix::Application.routes.draw do
 
   root to: "users#front"
 
+  get "/my_queue", to: "queue_items#index"
+  resources "queue_items", only: [:create, :destroy]
+
   get "/register", to: "users#new"
   resources :users, only: [:front, :create, :show]
 
@@ -15,5 +18,8 @@ Myflix::Application.routes.draw do
     collection do
       get :search, to: "videos#search"
     end
+    resources :reviews, only: [:create]
   end
+
+  resources :categories, only: [:index, :show]
 end
