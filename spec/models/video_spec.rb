@@ -3,10 +3,8 @@ require "rails_helper"
 
 describe Video do
   it "saves itself" do
-    video = Video.new(title: "Test video", description: "Test video description", small_cover_url: "https://testvideo.com", large_cover_url: "http://testvideo.com")
-    video.save
-    found_video = Video.first
-    expect(found_video.title).to eq("Test video")
+    video = Fabricate(:video)
+    expect(Video.first).to eq(video)
   end
 
   it "belongs to category" do
@@ -29,6 +27,22 @@ describe Video do
   it "requires title and description" do
     video = Video.new(title: "Test video", description: "Test video description")
     expect(video.save).to be true
+  end
+
+  describe "#video is in the queue?" do
+    it "returns true if video is in the queue" do
+      user = Fabricate(:user)
+      video = Fabricate(:video)
+      Fabricate(:queue_item, user: user, video: video)
+      expect(video.in_queue?).to be(true)
+    end
+
+    it "returns false if video is not in the queue" do
+      user = Fabricate(:user)
+      video = Fabricate(:video)
+      Fabricate(:queue_item, video: Fabricate(:video), user: user)
+      expect(video.in_queue?).to be(false)
+    end
   end
 
   describe "#search_by_title" do

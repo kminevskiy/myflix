@@ -13,7 +13,8 @@ article.video
         p = @video.description
         .actions
           = button_to "Watch Now"
-          = button_to "+ My Queue", { controller: "queue_items", action: "create", video_id: @video.id }
+          - if !@video.in_queue?
+            = button_to "+ My Queue", { controller: "queue_items", action: "create", video_id: @video.id }
 
 section.reviews.container
   = form_for [@video, @review] do |f|

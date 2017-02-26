@@ -13,4 +13,8 @@ class Video < ActiveRecord::Base
     rating_sum = self.reviews.map(&:rating).reduce(&:+).to_f
     rating_sum == 0 ? 0 : rating_sum / self.reviews.size
   end
+
+  def in_queue?
+    QueueItem.find_by(video_id: id).present?
+  end
 end
