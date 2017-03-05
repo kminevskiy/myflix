@@ -34,14 +34,14 @@ describe Video do
       user = Fabricate(:user)
       video = Fabricate(:video)
       Fabricate(:queue_item, user: user, video: video)
-      expect(video.in_queue?).to be(true)
+      expect(video.in_queue?(user.id)).to be(true)
     end
 
     it "returns false if video is not in the queue" do
       user = Fabricate(:user)
       video = Fabricate(:video)
       Fabricate(:queue_item, video: Fabricate(:video), user: user)
-      expect(video.in_queue?).to be(false)
+      expect(video.in_queue?(user.id)).to be(false)
     end
   end
 

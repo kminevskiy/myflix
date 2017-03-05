@@ -43,4 +43,33 @@ describe UsersController do
     end
   end
 
+  describe "GET show" do
+    let(:user) { Fabricate(:user) }
+
+    context "with authenticated user" do
+      before do
+        session[:user_id] = user.id
+        get :show, params: { id: user.id }
+      end
+
+      it "sets the user variable" do
+        expect(assigns(:user)).not_to be_nil
+        expect(assigns(:user)).to be_instance_of(User)
+      end
+
+      it "renders the show template" do
+        expect(response).to render_template :show
+      end
+    end
+
+    context "with unauthenticated user" do
+      before do
+        get :show, params: { id: user.id }
+      end
+
+      it "redirects to the login page" do
+        expect(response).to redirect_to login_path
+      end
+    end
+  end
 end

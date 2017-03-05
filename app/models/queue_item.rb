@@ -2,7 +2,7 @@ class QueueItem < ActiveRecord::Base
   belongs_to :user
   belongs_to :video
 
-  validates :video, uniqueness: true
+  validates_uniqueness_of :video, scope: :user_id
 
   validates :position, numericality: { only_integer: true }
 

@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'pg'
 gem "slim-rails"
 gem "bcrypt"
+gem "figaro"
 
 group :development do
   gem 'puma'
@@ -24,6 +25,7 @@ group :development, :test do
   gem "shoulda-matchers"
   gem "fabrication"
   gem "faker"
+  gem "launchy"
 end
 
 group :test do

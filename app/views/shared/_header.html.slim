@@ -5,7 +5,7 @@ section#top-header.row
     ul.col-md-4.clearfix
       li= link_to "Videos", videos_path
       li= link_to "My Queue", my_queue_path(user_id: current_user.id)
-      li= link_to "People"
+      li= link_to "People", people_path
     = render "shared/search_form"
   user_links.pull-right
     ul

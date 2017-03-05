@@ -18,4 +18,14 @@ Myflix::Application.configure do
   config.assets.debug = true
 
   config.eager_load = false
+
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+  address:              'smtp.fastmail.com',
+  port:                 587,
+  domain:               'myflix.local',
+  user_name:            ENV["fm_user"],
+  password:             ENV["fm_password"],
+  authentication:       'plain',
+  enable_starttls_auto: true  }
 end
