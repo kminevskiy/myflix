@@ -10,6 +10,11 @@ Myflix::Application.routes.draw do
   get "/people", to: "relationships#index"
   resources :relationships, only: [:create, :destroy]
 
+  get "/reset", to: "forgot_passwords#new"
+  get "/reset/:token", to: "forgot_passwords#edit", as: :edit_password
+  get "/reset_process", to: "forgot_passwords#show"
+  resources :forgot_passwords, only: [:create, :update]
+
   get "/register", to: "users#new"
   resources :users, only: [:front, :create, :show]
 

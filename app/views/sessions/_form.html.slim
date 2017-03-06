@@ -12,5 +12,6 @@
       .row
         .col-sm-4
           = password_field_tag :password
-  fieldset.form-group.action
+  fieldset.form-group.actions
     input(type="submit" value="Sign in" class="btn btn-default")
+    = link_to "Forgot password?", reset_path

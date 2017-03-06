@@ -1,0 +1,15 @@
+section.sign_in.container
+  .row
+    .col-sm-10.col-sm-offset-1
+      = form_for @user, :url => forgot_password_path(@user.token), html: { class: "form-horizontal" } do |f|
+        header
+          h1 Reset Password
+        fieldset
+          .form-group
+            = f.hidden_field :token, value: @user.token
+            = f.label :password, "New Password", class: "control-label col-sm-2"
+            .col-sm-6
+              = f.password_field :password, class: "form-control"
+        fieldset.actions.control-group.col-sm-offset-2
+          .controls
+            = f.submit "Reset password", class: "btn btn-default"
