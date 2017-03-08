@@ -13,7 +13,8 @@ module Myflix
     config.assets.enabled = true
     config.generators do |g|
       g.orm :active_record
-      g.template_engine :haml
+      g.template_engine :slim
     end
+    config.autoload_paths << "#{Rails.root}/lib"
   end
 end
