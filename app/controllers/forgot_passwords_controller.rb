@@ -20,15 +20,12 @@ class ForgotPasswordsController < ApplicationController
 
   def update
     @user = User.find_by(token: params[:user][:token])
-    if @user
-      @user.password = params[:user][:password]
-      if @user.valid?
-        @user.generate_token
-        @user.save
-        redirect_to login_path
-        return
-      end
-    render :edit
+    @user.password = params[:user][:password]
+    if @user.valid?
+      @user.update_column(:token, SecureRandom.urlsafe_base64)
+      redirect_to login_path
+    else
+      render :edit
     end
   end
 end

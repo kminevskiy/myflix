@@ -12,9 +12,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    referer = User.find_by(token: params[:user][:ref_token])
 
     if @user.save
       UserMailer.welcome_email(@user).deliver
+      Relationship.create(leader: referer, follower: @user) if referer
       redirect_to login_path
     else
       render :new

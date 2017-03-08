@@ -18,6 +18,10 @@ describe UsersController do
           post :create, params: { user: Fabricate.attributes_for(:user) }
         end
 
+        it_behaves_like "token generator" do
+          let(:object) { Fabricate(:user) }
+        end
+
         it "sends out the email" do
           expect(ActionMailer::Base.deliveries).not_to be_empty
         end
@@ -84,7 +88,7 @@ describe UsersController do
     context "with authenticated user" do
       before do
         session[:user_id] = user.id
-        get :show, params: { id: user.id }
+        get :show, params: { id: user.token }
       end
 
       it "sets the user variable" do

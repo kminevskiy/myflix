@@ -1,0 +1,9 @@
+doctype html
+html
+  head
+    meta(content='text/html; charset=UTF-8' http-equiv='Content-Type')
+  body
+    h1 Dear #{@invitation.full_name},
+    h2 #{@invitation.user.full_name} invited you to join MyFlix!
+    p Please follow the link to complete your registration and feel awesome about yourself:
+    = link_to "Join", friend_arrived_url(@invitation.user.token)

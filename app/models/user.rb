@@ -1,17 +1,17 @@
 class User < ActiveRecord::Base
+  include Tokenable
+
   has_many :queue_items, -> { order :position }
   has_many :reviews
   has_many :following_relationships, class_name: "Relationship", foreign_key: "follower_id"
   has_many :leading_relationships, class_name: "Relationship", foreign_key: "leader_id"
+  has_many :invites
 
   validates :email, presence: true, uniqueness: true
-  validates :password, presence: true, length: { in: 6..30 }, on: :create
+  validates :password, presence: true, length: { in: 6..30 }
   validates :full_name, presence: true
 
   has_secure_password validations: false
-
-  before_create :generate_token
-  after_update :generate_token
 
   def normalize_queue_items_positions
     queue_items.each_with_index do |item, idx|
@@ -21,10 +21,6 @@ class User < ActiveRecord::Base
 
   def new_relationship?(another_user_id)
     Relationship.find_by(leader_id: another_user_id, follower_id: id).blank?
-  end
-
-  def generate_token
-    self.token = SecureRandom.urlsafe_base64
   end
 
   def to_param

@@ -15,6 +15,12 @@ Myflix::Application.routes.draw do
   get "/reset_process", to: "forgot_passwords#show"
   resources :forgot_passwords, only: [:create, :update]
 
+  get "/invite", to: "invites#new"
+  post "/invite", to: "invites#create"
+  get "/invite_confirmation", to: "invites#show"
+
+  get "/register_ref/:token", to: "friends#new", as: :friend_arrived
+
   get "/register", to: "users#new"
   resources :users, only: [:front, :create, :show]
 
