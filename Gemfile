@@ -12,7 +12,6 @@ gem "slim-rails"
 gem "bcrypt"
 gem "figaro"
 gem "sidekiq"
-gem "sentry-raven"
 
 group :development do
   gem 'puma'
