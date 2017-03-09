@@ -15,7 +15,7 @@ class UsersController < ApplicationController
     referer = User.find_by(token: params[:user][:ref_token])
 
     if @user.save
-      UserMailer.welcome_email(@user).deliver
+      UserMailer.delay.welcome_email(@user)
       Relationship.create(leader: referer, follower: @user) if referer
       redirect_to login_path
     else
