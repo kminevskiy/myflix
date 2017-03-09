@@ -20,7 +20,6 @@ end
 
 group :development, :test do
   gem 'pry'
-  gem 'pry-nav'
   gem 'rspec-rails'
   gem "rails-controller-testing"
   gem "shoulda-matchers"
@@ -34,6 +33,7 @@ group :test do
   gem "capybara"
   gem "capybara-email"
   gem 'vcr'
+  gem 'rails-perftest'
 end
 
 group :production do
