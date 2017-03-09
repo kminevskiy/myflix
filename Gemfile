@@ -34,6 +34,7 @@ group :test do
   gem "capybara-email"
   gem 'vcr'
   gem 'rails-perftest'
+  gem 'ruby-prof'
 end
 
 group :production do

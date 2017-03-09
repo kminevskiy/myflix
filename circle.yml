@@ -1,0 +1,19 @@
+ine:
+  ruby:
+    version: 2.3.3
+deployment:
+  production:
+    branch: master
+    commands:
+      - heroku maintenance:on --app fast-coast-16993
+      - heroku pg:backups capture --app fast-coast-16993
+      - git push git@heroku.com:fast-coast-16993.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app fast-coast-16993
+      - heroku maintenance:off --app fast-coast-16993
+  staging:
+    branch: staging
+    commands:
+      - heroku maintenance:on --app staging_app_name
+      - git push git@heroku.com:staging_app_name.git $CIRCLE_SHA1:refs/heads/master
+      - heroku run rake db:migrate --app staging_app_name
+      - heroku maintenance:off --app staging_app_name
