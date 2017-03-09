@@ -1,6 +1,4 @@
 Myflix::Application.routes.draw do
-  get '/ui/:action', controller: 'ui'
-
   root "users#front"
 
   get "/my_queue", to: "queue_items#index"
