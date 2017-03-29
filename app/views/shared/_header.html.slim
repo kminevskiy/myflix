@@ -1,11 +1,13 @@
 section#top-header.row
-  h1.col-md-2
+  h1.col-md-1
     = link_to "MyFLiX", home_path
   - if logged_in?
-    ul.col-md-4.clearfix
+    ul.col-md-6.clearfix
       li= link_to "Videos", videos_path
       li= link_to "My Queue", my_queue_path(user_id: current_user.id)
       li= link_to "People", people_path
+      li= link_to "Invite", invite_path
+      li= link_to "Advanced Search", advanced_search_videos_path
     = render "shared/search_form"
   user_links.pull-right
     ul

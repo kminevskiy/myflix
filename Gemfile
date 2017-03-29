@@ -12,6 +12,14 @@ gem "slim-rails"
 gem "bcrypt"
 gem "figaro"
 gem "sidekiq"
+gem 'carrierwave', '~> 1.0'
+gem 'carrierwave-aws'
+gem 'mini_magick'
+gem 'stripe'
+gem 'stripe_event'
+gem 'draper', '3.0.0.pre1'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :development do
   gem 'puma'
@@ -33,6 +41,7 @@ group :test do
   gem "capybara"
   gem "capybara-email"
   gem 'vcr'
+  gem 'webmock'
   gem 'rails-perftest'
   gem 'ruby-prof'
 end

@@ -10,12 +10,14 @@ describe UsersController do
   end
 
   describe "POST create" do
-    describe "email sending" do
-      context "with valid input" do
+    describe "sends out emails" do
+      context "with valid user info", :vcr do
+        let(:customer) { double(:customer, successful?: true, customer_token: "abcdefg") }
         after { ActionMailer::Base.deliveries.clear }
 
         before do
-          post :create, params: { user: Fabricate.attributes_for(:user) }
+          allow(StripeWrapper::Customer).to receive(:create) { customer }
+          post :create, params: { user: Fabricate.attributes_for(:user), token: "123" }
         end
 
         it_behaves_like "token generator" do
@@ -39,7 +41,8 @@ describe UsersController do
         end
 =end
       end
-      context "with invalid input" do
+
+      context "with invalid user info" do
         it "does not send an email with invalid input" do
           existing_user = Fabricate(:user)
           post :create, params: { user: { email: existing_user.email, password: "12345678", full_name: "Test Name"} }
@@ -49,16 +52,15 @@ describe UsersController do
       end
     end
 
-    context "with valid input" do
+    context "with valid card" do
+      let(:customer) { double(:customer, successful?: true, customer_token: "abcdefg") }
+
       before do
+        allow(StripeWrapper::Customer).to receive(:create) { customer }
         post :create, params: { user: Fabricate.attributes_for(:user) }
       end
 
-      it "creates the user" do
-        expect(User.count).to eq(1)
-      end
-
-      it "redirects to login page" do
+      it "redirects to login page", :vcr do
         expect(response).to redirect_to login_path
       end
     end
@@ -66,14 +68,6 @@ describe UsersController do
     context "with invalid input" do
       before do
         post :create, params: { user: { password: "testtest", full_name: "Test name" } }
-      end
-
-      it "does not create a user" do
-        expect(User.count).to eq(0)
-      end
-
-      it "renders the registration form" do
-        expect(response).to render_template :new
       end
 
       it "sets @user" do

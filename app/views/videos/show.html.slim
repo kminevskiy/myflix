@@ -1,20 +1,23 @@
 - rating_options = [["1 star", 1], ["2 stars", 2], ["3 stars", 3], ["4 stars", 4], ["5 stars", 5]]
-- average_rating = @video.average_rating.zero? ? 0 : number_with_precision(@video.average_rating, precision: 1)
+- average_rating = @video.average_rating.to_i.zero? ? 0 : number_with_precision(@video.average_rating.to_i, precision: 1)
 
 article.video
   .container
     .row
       .video_large_cover.col-sm-7.col-sm-offset-1
-        img(src="/tmp/monk_large.jpg")
+        - if @video.video_url
+          = video_tag @video.video_url, size: "640x360", controls: true
+        - else
+          img(src="#{@video.large_cover_url}")
       .video_info.col-sm-3
         header
           h3 = @video.title
-          span Rating: #{average_rating} / 5.0
+          span = @video.show_rating
         p = @video.description
         .actions
-          = button_to "Watch Now"
           - if !@video.in_queue?(current_user.id)
             = button_to "+ My Queue", { controller: "queue_items", action: "create", video_id: @video.id }
+          img(src="#{@video.small_cover_url}")
 
 section.reviews.container
   = form_for [@video, @review] do |f|

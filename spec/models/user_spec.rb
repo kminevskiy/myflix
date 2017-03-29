@@ -22,4 +22,12 @@ describe User do
       expect(user.new_relationship?(alice.id)).to be true
     end
   end
+
+  describe "#deactivate!" do
+    it "deactivates an active user" do
+      alice = Fabricate(:user, active: true)
+      alice.deactivate!
+      expect(alice).not_to be_active
+    end
+  end
 end

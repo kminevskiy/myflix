@@ -1,0 +1,43 @@
+section.admin_add_video
+  .container
+    .row
+      .col-md-10.col-md-offset-1
+        = form_for [:admin, @video], html: { class: "form-horizontal" } do |f|
+          ul.nav.nav-tabs
+            li
+              =link_to "Recent Payments", admin_payments_path
+            li.active
+              =link_to "Add a New Video", new_admin_video_path
+          br
+          fieldset
+            .form-group
+              = f.label :title, "Title", class: "control-label col-sm-3"
+              .col-sm-3
+                = f.text_field :title, class: "form-control"
+            .form-group
+              = f.label :category, "Category", class: "control-label col-sm-3"
+              .col-sm-6
+                = f.select :category, Category.all.map { |c| [ c.name, c.id ] }, class: "form-control"
+            .form-group
+              = f.label :description, "Description", class: "control-label col-sm-3"
+              .col-sm-6
+                = f.text_area :description, rows: 8, class: "form-control"
+            .form-group
+              = f.label :large_cover_url, "Large Cover", class: "control-label col-sm-3"
+              .col-sm-6
+                col.btn.btn-file
+                  = f.file_field :large_cover_url, class: "form-control"
+            .form-group
+              = f.label :small_cover_url, "Small Cover", class: "control-label col-sm-3"
+              .col-sm-6
+                col.btn.btn-file
+                  = f.file_field :small_cover_url, class: "form-control"
+            .form-group
+              = f.label :video_url, "Video URL", class: "control-label col-sm-3"
+              .col-sm-6
+                col.btn.btn-file
+                  = f.text_field :video_url, class: "form-control"
+
+          fieldset.actions.form-group
+            .col-sm-6.col-md-offset-3
+              = f.submit "Add Video", class: "btn btn-default"

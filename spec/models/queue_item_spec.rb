@@ -6,7 +6,7 @@ describe QueueItem do
   it { should belong_to :video }
   it { should validate_numericality_of(:position).only_integer }
 
-  describe "#video_title" do
+  describe "#video_title", :vcr do
     it "returns the title of the associated video" do
       video = Fabricate(:video, title: "Matrix")
       queue_item = Fabricate(:queue_item, video: video)
@@ -14,7 +14,7 @@ describe QueueItem do
     end
   end
 
-  describe "#average_rating" do
+  describe "#average_rating", :vcr do
     it "returns the rating from the review if any reviews are present" do
       video = Fabricate(:video)
       user = Fabricate(:user)
@@ -32,7 +32,7 @@ describe QueueItem do
     end
   end
 
-  describe "#category_name" do
+  describe "#category_name", :vcr do
     it "returns the category's name of the video" do
       category = Fabricate(:category, name: "Comedies")
       video = Fabricate(:video, category: category)
@@ -41,7 +41,7 @@ describe QueueItem do
     end
   end
 
-  describe "#category" do
+  describe "#category", :vcr do
     it "returns the category of the video" do
       category = Fabricate(:category, name: "Comedies")
       video = Fabricate(:video, category: category)

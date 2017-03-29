@@ -1,7 +1,7 @@
 require "spec_helper"
 require "rails_helper"
 
-describe ReviewsController do
+describe ReviewsController, :vcr do
   describe "POST create" do
     context "with authenticated user" do
       let(:video) { Fabricate(:video) }
