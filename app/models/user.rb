@@ -26,4 +26,8 @@ class User < ActiveRecord::Base
   def to_param
     token
   end
+
+  def deactivate!
+    update_column(:active, false)
+  end
 end

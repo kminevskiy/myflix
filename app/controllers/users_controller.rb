@@ -13,12 +13,12 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     referer = User.find_by(token: params[:user][:ref_token])
-
-    if @user.save
-      UserMailer.delay.welcome_email(@user)
-      Relationship.create(leader: referer, follower: @user) if referer
+    result = UserSignup.new(@user).sign_up(params[:stripeToken], referer)
+    if result.successful?
+      flash[:success] = "Thank you for registering with MyFlix. Please sign in now."
       redirect_to login_path
     else
+      flash[:error] = result.error_message
       render :new
     end
   end

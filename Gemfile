@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 ruby '2.3.3'
 
-gem "bundler"
 gem 'bootstrap-sass', '3.1.1.1'
 gem 'coffee-rails'
 gem 'rails', '5.0.1'
@@ -13,7 +12,14 @@ gem "slim-rails"
 gem "bcrypt"
 gem "figaro"
 gem "sidekiq"
-gem "sentry-raven"
+gem 'carrierwave', '~> 1.0'
+gem 'carrierwave-aws'
+gem 'mini_magick'
+gem 'stripe'
+gem 'stripe_event'
+gem 'draper', '3.0.0.pre1'
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
 
 group :development do
   gem 'puma'
@@ -22,7 +28,6 @@ end
 
 group :development, :test do
   gem 'pry'
-  gem 'pry-nav'
   gem 'rspec-rails'
   gem "rails-controller-testing"
   gem "shoulda-matchers"
@@ -36,6 +41,9 @@ group :test do
   gem "capybara"
   gem "capybara-email"
   gem 'vcr'
+  gem 'webmock'
+  gem 'rails-perftest'
+  gem 'ruby-prof'
 end
 
 group :production do

@@ -1,4 +1,5 @@
-= form_for @user, html: { class: "form-horizontal" } do |f|
+script(src="https://js.stripe.com/v3/")
+= form_for @user, html: { class: "form-horizontal", id: "payment-form" } do |f|
   header
     h1 Register
   fieldset
@@ -14,6 +15,13 @@
       = f.label :full_name, "Full Name", class: "control-label col-sm-2"
       .col-sm-6
         = f.text_field :full_name, class: "form-control"
+    .form-group
+      = label_tag "Credit Card", nil, class: "control-label col-sm-2"
+      .col-sm-6.credit-card-slider
+        div id="card-element"
+        div id="card-errors"
   fieldset.actions.control-group.col-sm-offset-2
     .controls
-      = f.submit "Sign Up", class: "btn btn-default"
+      input(type="submit" value="Sign Up" class="btn btn-default")
+
+= javascript_include_tag 'payments'

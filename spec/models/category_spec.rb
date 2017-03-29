@@ -1,11 +1,11 @@
 require "spec_helper"
 require "rails_helper"
 
-describe Category do
+describe Category, :vcr do
   it { should have_many(:videos) }
   it { should validate_presence_of(:name) }
 
-  it "has many videos" do
+  it "has many videos", :elasticsearch do
     category = Category.create(name: "Fiction")
     video = Video.create(title: "Test video", category: category, description: "Test video description", small_cover_url: "https://testvideo.com", large_cover_url: "http://testvideo.com")
 
@@ -13,7 +13,7 @@ describe Category do
   end
 
   describe "#recent_videos" do
-    it "returns last 6 videos (with 7 present) " do
+    it "returns last 6 videos (with 7 present)", :elasticsearch do
       category = Category.create(name: "Fiction")
       7.times do |n|
         category.videos.create(title: "Test video #{n}", description: "Description for test video #{n}")
@@ -22,7 +22,7 @@ describe Category do
     expect(category.recent_videos.size).to eq(6)
     end
 
-    it "returns last 3 videos, in reverse chronological order" do
+    it "returns last 3 videos, in reverse chronological order", :elasticsearch do
       category = Category.create(name: "Fiction")
       video1 = category.videos.create(title: "Test video 1", description: "Description for test video 1", created_at: 3.day.ago)
       video2 = category.videos.create(title: "Test video 2", description: "Description for test video 2", created_at: 2.day.ago)

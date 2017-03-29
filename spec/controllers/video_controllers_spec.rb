@@ -1,7 +1,7 @@
 require "spec_helper"
 require "rails_helper"
 
-describe VideosController do
+describe VideosController, :vcr do
   describe "GET show" do
     it "sets @video for authenticated users" do
       session[:user_id] = Fabricate(:user).id

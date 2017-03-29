@@ -1,7 +1,7 @@
 require "spec_helper"
 require "rails_helper"
 
-describe QueueItemsController do
+describe QueueItemsController, :vcr do
   context "with authenticated user" do
     set_users
     set_videos_and_queue_items

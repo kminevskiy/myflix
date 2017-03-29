@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170307232344) do
+ActiveRecord::Schema.define(version: 20170315145238) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,6 +28,12 @@ ActiveRecord::Schema.define(version: 20170307232344) do
     t.integer  "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "amount"
+    t.string  "reference_id"
   end
 
   create_table "queue_items", force: :cascade do |t|
@@ -58,9 +64,12 @@ ActiveRecord::Schema.define(version: 20170307232344) do
     t.string   "email"
     t.string   "full_name"
     t.string   "password_digest"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
     t.string   "token"
+    t.boolean  "admin"
+    t.string   "customer_token"
+    t.boolean  "active",          default: true
   end
 
   create_table "videos", force: :cascade do |t|
@@ -71,6 +80,7 @@ ActiveRecord::Schema.define(version: 20170307232344) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "category_id"
+    t.string   "video_url"
   end
 
 end

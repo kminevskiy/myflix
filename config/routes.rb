@@ -1,6 +1,4 @@
 Myflix::Application.routes.draw do
-  get '/ui/:action', controller: 'ui'
-
   root "users#front"
 
   get "/my_queue", to: "queue_items#index"
@@ -28,13 +26,21 @@ Myflix::Application.routes.draw do
   post "/login", to: "sessions#create"
   delete "/logout", to: "sessions#destroy"
 
+  namespace :admin do
+    resources :videos, only: [:new, :create]
+    resources :payments, only: [:index]
+  end
+
   get "/home", to: "videos#index"
   resources :videos, only: [:show, :index] do
     collection do
       get "search", to: "videos#search"
+      get "advanced_search", to: "videos#advanced_search", as: :advanced_search
     end
     resources :reviews, only: [:create]
   end
 
   resources :categories, only: [:index, :show]
+
+  mount StripeEvent::Engine, at: '/stripe_events'
 end
