@@ -14,12 +14,11 @@ class UserSignup
         UserMailer.delay.welcome_email(@user)
         Relationship.create(leader: referer, follower: @user) if referer
         @status = :success
-        self
       else
         @status = :failed
         @error_message = customer.error_message
-        self
       end
+      self
     else
       @status = :failed
       @error_message = "Please check your input and try again."

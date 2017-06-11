@@ -40,7 +40,7 @@ describe Admin::VideosController do
     end
   end
 
-  describe "POST create" do
+  describe "POST create", :vcr do
     let(:user) { Fabricate(:user, admin: true) }
 
     before do

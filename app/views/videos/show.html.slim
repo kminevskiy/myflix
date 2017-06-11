@@ -17,7 +17,8 @@ article.video
         .actions
           - if !@video.in_queue?(current_user.id)
             = button_to "+ My Queue", { controller: "queue_items", action: "create", video_id: @video.id }
-          img(src="#{@video.small_cover_url}")
+          - if @video.video_url
+            img(src="#{@video.small_cover_url}")
 
 section.reviews.container
   = form_for [@video, @review] do |f|

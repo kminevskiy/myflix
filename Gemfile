@@ -1,9 +1,8 @@
 source 'https://rubygems.org'
-ruby '2.3.3'
 
 gem 'bootstrap-sass', '3.1.1.1'
 gem 'coffee-rails'
-gem 'rails', '5.0.1'
+gem 'rails'
 gem 'sass-rails'
 gem 'uglifier'
 gem 'jquery-rails'
@@ -17,14 +16,10 @@ gem 'carrierwave-aws'
 gem 'mini_magick'
 gem 'stripe'
 gem 'stripe_event'
-gem 'draper', '3.0.0.pre1'
+gem 'draper'
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
-
-group :development do
-  gem 'puma'
-  gem "binding_of_caller"
-end
+gem 'puma'
 
 group :development, :test do
   gem 'pry'

@@ -4,6 +4,7 @@ require File.expand_path('../../config/environment', __FILE__)
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 # Prevent database truncation if the environment is production
+
 abort("The Rails environment is running in production mode!") if Rails.env.production?
 require 'spec_helper'
 require 'rspec/rails'
@@ -11,6 +12,7 @@ require 'capybara/rails'
 require 'capybara/email/rspec'
 require 'sidekiq/testing'
 require 'vcr'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in

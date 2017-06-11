@@ -7,3 +7,6 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 #
 
+Category.create(name: "Fantasy")
+Category.create(name: "Drama")
+Category.create(name: "Comedy")
