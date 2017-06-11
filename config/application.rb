@@ -16,6 +16,7 @@ module Myflix
       g.template_engine :slim
     end
     config.autoload_paths << "#{Rails.root}/lib"
+    config.active_job.queue_adapter = :sidekiq
   end
 end
 

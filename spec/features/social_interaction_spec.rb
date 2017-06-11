@@ -6,8 +6,8 @@ feature "User interacts with followers" do
   let(:alice) { Fabricate(:user) }
   let(:matrix) { Fabricate(:video) }
 
-  scenario "by adding a follower" do
-    matrix_review = Fabricate(:review, user: alice, video: matrix)
+  scenario "by adding a follower", :vcr do
+    Fabricate(:review, user: alice, video: matrix)
     log_in(user)
     visit video_path(matrix)
     click_link alice.full_name

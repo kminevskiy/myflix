@@ -13,4 +13,4 @@ section#top-header.row
     ul
       li.dropdown
         - if logged_in?
-          = link_to current_user.full_name, logout_path, method: :delete
+          = link_to "#{current_user.full_name} (logout)", logout_path, method: :delete

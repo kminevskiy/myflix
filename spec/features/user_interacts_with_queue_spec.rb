@@ -2,7 +2,7 @@ require "spec_helper"
 require "rails_helper"
 
 feature "User navigates to the video details" do
-  scenario "add and reorders videos in the queue" do
+  scenario "add and reorders videos in the queue", :vcr do
     comedies = Fabricate(:category)
     matrix = Fabricate(:video, title: "Matrix", category: comedies)
     braveheart = Fabricate(:video, title: "Braveheart", category: comedies)

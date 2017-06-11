@@ -13,7 +13,8 @@ describe UsersController do
     describe "sends out emails" do
       context "with valid user info", :vcr do
         let(:customer) { double(:customer, successful?: true, customer_token: "abcdefg") }
-        after { ActionMailer::Base.deliveries.clear }
+        let(:mailer) { Sidekiq::Extensions::DelayedMailer.jobs }
+        after { Sidekiq::Worker.clear_all }
 
         before do
           allow(StripeWrapper::Customer).to receive(:create) { customer }
@@ -25,21 +26,8 @@ describe UsersController do
         end
 
         it "sends out the email" do
-          expect(Sidekiq::Extensions::DelayedMailer.jobs.size).to eq(1)
+          expect(mailer.size).to eq 1
         end
-=begin
-        it "sends to the right recipient" do
-          message = Sidekiq::Extensions::DelayedMailer.jobs
-          user = assigns(:user)
-          expect(message).to eq(user.email)
-        end
-
-        it "has the right content" do
-          message = Sidekiq::Extensions::DelayedMailer.jobs
-          user = assigns(:user)
-          expect(message.body).to include(user.email)
-        end
-=end
       end
 
       context "with invalid user info" do
